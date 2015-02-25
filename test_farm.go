@@ -115,7 +115,6 @@ func (r *RemoteWorker) Setup(host string, wg *sync.WaitGroup) {
 	re := fmt.Sprintf("(?s)(^.*)%s@%s:.*\\$", username, host)
 	r.promptMatch, _ = regexp.Compile(re)
 	r.waitForPrompt()
-    r.remoteCommand("export JUJU_MONGOD=/usr/lib/juju/bin/mongod")
 }
 
 // Close gracefully terminates the SSH connection and connection to the local
@@ -161,14 +160,14 @@ func main() {
 	package_chan := make(chan string, len(packages))
 	results_chan := make(chan string, len(packages))
 
-    var wg sync.WaitGroup
+	var wg sync.WaitGroup
 
 	for i := range packages {
 		package_chan <- packages[len(packages)-1-i]
 	}
-	close(package_chan)d
+	close(package_chan)
 
-	var worker_names = []string{"homework1", "homework2"}
+	var worker_names = []string{"homework1", "homework2", "homework4"}
 	var workers = []RemoteWorker{}
 
 	for _, name := range worker_names {
